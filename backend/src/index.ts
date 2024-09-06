@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
+import { checkConnection } from './dbConfig'
 
 const app = express()
 app.use(cors())
@@ -11,6 +12,6 @@ app.get('/',(req:Request,res:Response)=>{
 
 app.listen(PORT,()=>{
     console.log(`server is conected on ${PORT} 🫣`);
-    
+    checkConnection()
 })
 
