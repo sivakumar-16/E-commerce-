@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, BaseEntity, OneToMany } from 'typeorm';
 import { Order } from './order.model';
 import { Field, ObjectType } from 'type-graphql';
 
@@ -33,6 +33,6 @@ export class Product extends BaseEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @ManyToMany(() => Order, order => order.products)
-  orders: Order[];
+  @OneToMany(() => Order, order => order.product)
+  orders: Order[]; 
 }

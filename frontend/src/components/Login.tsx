@@ -1,9 +1,8 @@
-import { useMutation, gql  } from '@apollo/client';
-import { TextField, Button, Typography, Box } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, gql } from "@apollo/client";
+import { TextField, Button, Typography, Box } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// GraphQL mutation for login
 const LOGIN_USER = gql`
   mutation LoginUser($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -15,31 +14,47 @@ const LOGIN_USER = gql`
 `;
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [login, { data, loading, error }] = useMutation(LOGIN_USER);
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      await login({
+      const { data } = await login({
         variables: {
           email,
           password,
         },
       });
-    //   alert('Login successful!');
-      navigate('/product')
-      console.log('Logged in user:', data);
+
+      if (data && data.login) {
+        localStorage.setItem("userId", data.login.id);
+        
+        navigate("/product");
+        console.log("Logged in user:", data.login);
+      }
     } catch (err) {
-      alert('Error during login!, Register Please 🙏');
-      navigate('/register')
-      console.error('Login error:', err);
+      alert("Error during login! Please register 🙏");
+      // navigate('/register');
+      console.error("Login error:", err);
     }
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4, }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        mt: 4,
+        width: {
+          xs: '100%',  
+          sm: '50%',   
+          md: '25%'    
+        },
+      }}
+    >
       <Typography variant="h4" gutterBottom>
         Login
       </Typography>
@@ -49,7 +64,7 @@ const Login = () => {
         variant="outlined"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        sx={{ mb: 2, width: '300px' }}
+        sx={{ mb: 2, width: "300px" }}
       />
 
       <TextField
@@ -58,16 +73,17 @@ const Login = () => {
         variant="outlined"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        sx={{ mb: 2, width: '300px' }}
+        sx={{ mb: 2, width: "300px" }}
       />
 
-      <Button variant="contained" color="primary" onClick={handleLogin} disabled={loading}>
-        {loading ? 'Logging in...' : 'Submit'}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleLogin}
+        disabled={loading}
+      >
+        {loading ? "Logging in..." : "Submit"}
       </Button>
-
-      {/* <Button variant="contained" color="secondary" onClick={()=>navigate('/register')} sx={{mt:'2px'}}>
-        Resister
-          </Button> */}
 
       {error && (
         <Typography color="error" sx={{ mt: 2 }}>

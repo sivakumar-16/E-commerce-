@@ -28,17 +28,29 @@ const Products: React.FC = () => {
 
   if (loading) return <CircularProgress />;
   if (error) return <Alert severity="error">Error: {error.message}</Alert>;
+
+
+  const handleClick=(productId:number,productPrice:number,productName:string)=>{
+    localStorage.setItem('productId',productId.toString())
+    localStorage.setItem('productPrice',productPrice.toString())
+    localStorage.setItem('productName',productName)
+    
+    navigate('/order')
+   
+  }
+  
+
   return (
     <>
     <Container maxWidth='lg' sx={{marginTop:'50px'}}>
-      <Typography variant='h3' align='center' sx={{color:'blueviolet'}}>
+      <Typography variant='h3' align='center' sx={{ fontSize: { xs: '2rem', sm: '3rem', md: '4rem' } }}>
         Shop now, thank yourself later. 
       </Typography>
     </Container>
   
     <Grid container spacing={2} sx={{marginTop:'20px' ,mx:'auto',mr:'20px'}}>
       {data.getProducts.map((product: ProductsType) => (
-        <Grid item xs={5} sm={2} md={2} lg={2} key={product.id} >
+        <Grid item xs={12} sm={5} md={2} lg={2} key={product.id} >
           <Card sx={{maxWidth:245,border:'2px solid gray',borderRadius:'20px',mt:'20px',":hover":{boxShadow:20}}}>
             <CardContent >
           
@@ -54,7 +66,7 @@ const Products: React.FC = () => {
                 variant="contained"
                 color="primary"
                 sx={{ mx:'auto' }}
-                onClick={() => navigate('/cart')}
+                onClick={()=>handleClick(product.id,product.price,product.name)}
               >
                 Buy
               </Button>

@@ -6,7 +6,6 @@ import { UserResolver } from './Resolvers/user.resolver';
 import { ProductResolver } from './Resolvers/product.resolver';
 import { OrderResolver } from './Resolvers/order.resolver';
 import { buildSchema } from 'type-graphql';
-import { typeDefs } from './schema';
 
 const startServer = async () => {
     const app = express();
@@ -17,7 +16,7 @@ const startServer = async () => {
         
     });
 
-    const server = new ApolloServer({ schema,typeDefs });
+    const server = new ApolloServer({ schema});
 
     await server.start();
 
