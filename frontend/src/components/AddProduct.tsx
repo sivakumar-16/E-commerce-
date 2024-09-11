@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { TextField, Button, Box, Alert, CircularProgress } from '@mui/material';
+import { TextField, Button, Box, Alert, CircularProgress, Typography } from '@mui/material';
 
 const CREATE_PRODUCT = gql`
   mutation CreateProduct($name: String!, $description: String, $price: Float!, $imageUrl: String) {
@@ -32,7 +32,10 @@ const CreateProduct: React.FC = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+    <Box component="form" width='50%'onSubmit={handleSubmit} sx={{ mt: 3 ,mx:'auto',alignItems:'center'}}>
+     <Typography variant='h3' align='center'>
+     Create Products
+     </Typography>
       <TextField
         label="Product Name"
         fullWidth

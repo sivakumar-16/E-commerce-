@@ -48,11 +48,7 @@ const Login = () => {
         flexDirection: "column",
         alignItems: "center",
         mt: 4,
-        width: {
-          xs: '100%',  
-          sm: '50%',   
-          md: '25%'    
-        },
+       
       }}
     >
       <Typography variant="h4" gutterBottom>

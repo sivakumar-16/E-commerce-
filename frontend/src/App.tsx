@@ -5,6 +5,7 @@ import Order from "./components/Order";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import OrdersListPage from "./components/Orders";
+import CreateProduct from "./components/AddProduct";
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/addproduct" element={<CreateProduct />} />
+
           <Route path="/order" element={<Order />} />
           <Route path="/orders" element={<OrdersListPage />} />
 
